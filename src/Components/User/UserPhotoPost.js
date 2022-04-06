@@ -7,6 +7,7 @@ import Button from '../Forms/Button';
 import { PHOTO_POST } from '../../api';
 import Error from '../Helper/Error';
 import { useNavigate } from 'react-router-dom';
+import Head from '../Helper/Head';
 
 const UserPhotoPost = () => {
   const nome = useForm();
@@ -17,16 +18,16 @@ const UserPhotoPost = () => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    if(data) navigate('/conta');
+    if (data) navigate('/conta');
   }, [data, navigate])
 
   function handleSubmit(event) {
     event.preventDefault();
     const formData = new FormData();
     formData.append('img', img.raw);
-    formData.append('nome', nome.raw);
-    formData.append('peso', peso.raw);
-    formData.append('idade', idade.raw);
+    formData.append('nome', nome.value);
+    formData.append('peso', peso.value);
+    formData.append('idade', idade.value);
 
     const token = window.localStorage.getItem('token');
     const { url, options } = PHOTO_POST(formData, token);
@@ -43,6 +44,7 @@ const UserPhotoPost = () => {
 
   return (
     <section className={`${styles.photoPost} animeLeft`}>
+      <Head title="Poste sua foto" />
       <form onSubmit={handleSubmit}>
         <Input label="Nome" type="text" name="nome" {...nome} />
         <Input label="Peso" type="number" name="peso" {...peso} />
@@ -60,7 +62,7 @@ const UserPhotoPost = () => {
           ) : (
             <Button>Enviar</Button>
           )}
-          <Error error={error} />
+        <Error error={error} />
       </form>
       <div>
         {img.preview && (<div

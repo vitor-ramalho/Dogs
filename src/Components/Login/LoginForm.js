@@ -7,6 +7,7 @@ import Button from '../Forms/Button';
 import Input from '../Forms/Input';
 import { UserContext } from '../../UserContext';
 import Error from '../Helper/Error';
+import Head from '../Helper/Head';
 
 const LoginForm = () => {
     //const [username, setUsername] = React.useState('');
@@ -26,6 +27,7 @@ const LoginForm = () => {
 
     return (
         <section className='animeLeft'>
+            <Head title="Login"/>
             <h1 className='title'>Login</h1>
             <form className={styles.form} onSubmit={handleSubmit}>
                 <Input label="Usuário" type="text" name="username" {...username} />

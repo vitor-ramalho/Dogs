@@ -11,11 +11,12 @@ const FeedPhotos = ({ setModalPhoto, user, page, setInfinite }) => {
 
     React.useEffect(() => {
         async function fetchPhotos() {
-            const total = 3;
-            const { url, options } = PHOTOS_GET({ page, total: 6, user });
+            const total = 6;
+            const { url, options } = PHOTOS_GET({ page, total, user });
             const { response, json } = await request(url, options);
-            if(response && response.ok && json.length < total) setInfinite(false)
-            console.log(json);
+            console.log("resposta ", response, " JSON ",  json );
+            if(response && response.ok && json.length < total) setInfinite(false);
+            
         }
         fetchPhotos();
     }, [request, user, page, setInfinite])
@@ -24,7 +25,7 @@ const FeedPhotos = ({ setModalPhoto, user, page, setInfinite }) => {
     if (data)
         return (
             <ul className={`${styles.feed} animeLeft`}>
-                {data.map(photo => (
+                {data.map((photo) => (
                     <FeedPhotosItem
                         key={photo.id}
                         photo={photo}
